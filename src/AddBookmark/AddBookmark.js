@@ -25,6 +25,7 @@ class AddBookmark extends Component {
     e.preventDefault()
     // get the form fields from the event
     const { title, url, description, rating } = e.target
+    //console.log('title: ', title, ' url: ', url);
     const bookmark = {
       title: title.value,
       url: url.value,
