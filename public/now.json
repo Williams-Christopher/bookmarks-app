@@ -1,0 +1,15 @@
+{
+    "version": 2,
+    "name": "bookmarks-app",
+    "alias": "bookmarks-app-cwilliams",
+    "routes": [
+        {
+            "src": "^/static/(.*)",
+            "dest": "/static/$1"
+        },
+        {
+            "src": ".*",
+            "dest": "/index.html"
+        }
+    ]
+}
