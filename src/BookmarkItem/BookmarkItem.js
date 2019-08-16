@@ -14,20 +14,17 @@ function deleteBookmarkRequest(bookmarkId, cb) {
   })
   .then(res => {
     if(!res.ok) {
-      // get the error message from the response
-      return res.json().then(error => {
-        // and throw it
-        throw error
-      })
+      throw new Error('There was a problem deleting the requested bookmark');
     }
-    // Succeeded
-    return res.json();
-  })
-  .then(data => {
-    // call the callback when the request is successful
-    // this is where the App component can remove it from state
+    // Succeeded - callback to delete the bookmark id from state
     cb(bookmarkId)
   })
+  // .then(data => {
+  //   console.log('BookmarkItem.deleteBookmarkRequest res.json success callback');
+  //   // call the callback when the request is successful
+  //   // this is where the App component can remove it from state
+
+  // })
   .catch(error => {
     console.error(error)
   })
