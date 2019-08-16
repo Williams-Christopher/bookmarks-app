@@ -1,7 +1,4 @@
 import React, { Component } from  'react';
-// No longer needed because this component is passed to the component
-// prop of Route in App.js, and that brings the history prop in too.
-//import { withRouter } from 'react-router-dom';
 import BookmarksContext from '../BookmarksContext';
 import config from '../config'
 import './AddBookmark.css';
@@ -11,10 +8,6 @@ const Required = () => (
 )
 
 class AddBookmark extends Component {
-  // static defaultProps = {
-  //   onAddBookmark: () => {}
-  // };
-
   static contextType = BookmarksContext;
 
   state = {
@@ -25,7 +18,6 @@ class AddBookmark extends Component {
     e.preventDefault()
     // get the form fields from the event
     const { title, url, description, rating } = e.target
-    //console.log('title: ', title, ' url: ', url);
     const bookmark = {
       title: title.value,
       url: url.value,
@@ -58,9 +50,6 @@ class AddBookmark extends Component {
         rating.value = ''
         this.context.addBookmark(data)
         this.props.history.push('/')
-        // No longer needed as we're looking to context for the
-        // onAddBookmark function reference.
-        // this.props.onAddBookmark(data)
       })
       .catch(error => {
         this.setState({ error })
@@ -73,7 +62,6 @@ class AddBookmark extends Component {
 
   render() {
     const { error } = this.state
-    //const { onClickCancel } = this.props
     return (
       <section className='AddBookmark'>
         <h2>Create a bookmark</h2>
