@@ -1,8 +1,9 @@
 import React from 'react';
-import Rating from '../Rating/Rating';
 import BookmarksContext from '../BookmarksContext';
 import config from '../config';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
+import Rating from '../Rating/Rating';
 import './BookmarkItem.css';
 
 function deleteBookmarkRequest(bookmarkId, cb) {
@@ -19,18 +20,12 @@ function deleteBookmarkRequest(bookmarkId, cb) {
     // Succeeded - callback to delete the bookmark id from state
     cb(bookmarkId)
   })
-  // .then(data => {
-  //   console.log('BookmarkItem.deleteBookmarkRequest res.json success callback');
-  //   // call the callback when the request is successful
-  //   // this is where the App component can remove it from state
-
-  // })
   .catch(error => {
     console.error(error)
   })
 }
 
-export default function BookmarkItem(props) {
+function BookmarkItem(props) {
   return (
     <BookmarksContext.Consumer>
       {(context) => (
@@ -52,7 +47,12 @@ export default function BookmarkItem(props) {
           <div className='BookmarkItem__buttons'>
             <button
               className='BookmarkItem__description'
-              // onClick={() => props.onClickDelete(props.id)}
+              onClick={() => props.history.push(`/edit-bookmark/${props.id}`)}
+            >
+              Edit
+            </button>
+            <button
+              className='BookmarkItem__description'
               onClick={() => {
                 deleteBookmarkRequest(props.id, context.deleteBookmark,)
               }}
@@ -68,6 +68,7 @@ export default function BookmarkItem(props) {
 
 BookmarkItem.defaultProps = {
   onClickDelete: () => {},
+  onClickEdit: () => {},
   rating: 1,
   description: '',
 };
@@ -90,6 +91,8 @@ BookmarkItem.propTypes = {
       return new Error(`Invalid prop, ${propName} must be min length 5 and begin http(s)://. Validation Failed.`);
     }
   },
-  rating: PropTypes.number,
+  rating: PropTypes.string,
   description: PropTypes.string,
 };
+
+export default withRouter(BookmarkItem);

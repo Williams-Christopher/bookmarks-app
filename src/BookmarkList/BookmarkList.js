@@ -12,7 +12,6 @@ class BookmarkList extends Component {
   static contextType = BookmarksContext;
 
   render() {
-    //const { bookmarks } = this.props
     const {bookmarks} = this.context    
     
     return (

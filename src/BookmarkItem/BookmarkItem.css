@@ -30,3 +30,9 @@
   font-size: .8em;
   text-align: right;
 }
+
+.BookmarkItem__buttons button {
+  min-width: 75px;
+  text-align: center;
+  margin: 10px;
+}

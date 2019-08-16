@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Route} from 'react-router-dom';
 import AddBookmark from './AddBookmark/AddBookmark';
+import EditBookmark from './EditBookmark/EditBookmark';
 import BookmarkList from './BookmarkList/BookmarkList';
 import BookmarkContext from './BookmarksContext';
 import Nav from './Nav/Nav';
@@ -33,8 +34,9 @@ class App extends Component {
     });
   }
 
-  updateBookmark = (bookmarkId, updatedFields) => {
-    console.log('Update bookmark function');
+  updateBookmark = bookmark => {
+    const newBookmarks = this.state.bookmarks.map(b => b.id === bookmark.id ? bookmark : b);
+    this.setState({bookmarks: newBookmarks});
   }
 
   componentDidMount() {
@@ -56,7 +58,6 @@ class App extends Component {
   }
 
   render() {
-    //const { bookmarks } = this.state
     const contextValue = {
       bookmarks: this.state.bookmarks,
       addBookmark: this.addBookmark,
@@ -70,14 +71,18 @@ class App extends Component {
         <BookmarkContext.Provider value={contextValue} >
         <Nav />
           <div className='content' aria-live='polite'>
+          <Route
+              exact
+              path='/'
+              component={BookmarkList}
+            />
             <Route
               path='/add-bookmark'
               component={AddBookmark}
             />
             <Route
-              exact
-              path='/'
-              component={BookmarkList}
+              path='/edit-bookmark/:bookmarkId'
+              component={EditBookmark}
             />
           </div>
         </BookmarkContext.Provider>
