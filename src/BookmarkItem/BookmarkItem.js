@@ -69,7 +69,9 @@ function BookmarkItem(props) {
 BookmarkItem.defaultProps = {
   onClickDelete: () => {},
   onClickEdit: () => {},
+  title: '',
   rating: 1,
+  url: 'https://example.com',
   description: '',
 };
 
@@ -91,7 +93,7 @@ BookmarkItem.propTypes = {
       return new Error(`Invalid prop, ${propName} must be min length 5 and begin http(s)://. Validation Failed.`);
     }
   },
-  rating: PropTypes.string,
+  rating: PropTypes.number,
   description: PropTypes.string,
 };
 
